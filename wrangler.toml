@@ -1,6 +1,10 @@
 name = "hacker-news-twitter"
 account_id = "6383648dac838be2887d8cb9bc1e3e7d"
 compatibility_date = "2026-02-28"
+workers_dev = true
+routes = [
+  { pattern = "hn-timeline.lukestephens.co.za", custom_domain = true }
+]
 
 [assets]
 directory = "./dist"
