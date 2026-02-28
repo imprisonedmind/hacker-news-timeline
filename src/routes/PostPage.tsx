@@ -16,6 +16,8 @@ export function PostPage() {
   const [hasUserScrolled, setHasUserScrolled] = useState(false);
   const [error, setError] = useState("");
   const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const isFetchingMoreRef = useRef(false);
+  const sentinelEnteredRef = useRef(false);
 
   useEffect(() => {
     const run = async () => {
@@ -26,6 +28,8 @@ export function PostPage() {
       }
       setLoading(true);
       setHasUserScrolled(false);
+      isFetchingMoreRef.current = false;
+      sentinelEnteredRef.current = false;
       setError("");
       try {
         const warmCount = getStoryThreadWarmCount(storyId);
@@ -64,10 +68,27 @@ export function PostPage() {
     const observer = new IntersectionObserver(
       (entries) => {
         const first = entries[0];
-        if (!first.isIntersecting || loading || loadingMore || !hasMore || !hasUserScrolled) {
+        if (!first.isIntersecting) {
+          sentinelEnteredRef.current = false;
           return;
         }
 
+        if (sentinelEnteredRef.current) {
+          return;
+        }
+        sentinelEnteredRef.current = true;
+
+        if (
+          loading ||
+          loadingMore ||
+          !hasMore ||
+          !hasUserScrolled ||
+          isFetchingMoreRef.current
+        ) {
+          return;
+        }
+
+        isFetchingMoreRef.current = true;
         setLoadingMore(true);
         getStoryThreadPage(storyId, { batchSize: 10 })
           .then((nextPage) => {
@@ -75,7 +96,10 @@ export function PostPage() {
             setThread({ story: nextPage.story, comments: nextPage.comments });
             setHasMore(nextPage.hasMore);
           })
-          .finally(() => setLoadingMore(false));
+          .finally(() => {
+            isFetchingMoreRef.current = false;
+            setLoadingMore(false);
+          });
       },
       { rootMargin: "0px 0px", threshold: 0.01 },
     );
