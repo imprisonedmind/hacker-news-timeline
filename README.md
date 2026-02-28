@@ -1,6 +1,12 @@
 # HN Timeline (Twitter-style Mobile Feed)
 
+![Cover](public/images/cover.png)
+
 Mobile-first React app that mixes Hacker News top stories and comments into a single vertical timeline.
+
+## Demo
+
+https://hackernews.lukestephens.co.za
 
 ## Run
 
