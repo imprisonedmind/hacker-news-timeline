@@ -1,0 +1,7 @@
+name = "hacker-news-twitter"
+account_id = "6383648dac838be2887d8cb9bc1e3e7d"
+compatibility_date = "2026-02-28"
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
