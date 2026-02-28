@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Verdana, Geneva, sans-serif;
+  color: #111111;
+  background: #f6f6ef;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #fff6ea 0%, #f6f6ef 35%, #f6f6ef 100%);
+}
+
+a {
+  color: inherit;
+}
+
+.hn-html a {
+  color: #ff6600;
+  text-decoration: underline;
+}
+
+.hn-html p {
+  margin: 0 0 0.5rem 0;
+}
+
+.hn-html p:last-child {
+  margin-bottom: 0;
+}
+
+.hn-html pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hn-html {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
